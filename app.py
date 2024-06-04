@@ -337,7 +337,7 @@ if uploaded_file is not None:
         st.set_option('deprecation.showPyplotGlobalUse', False)
         plt.style.use('dark_background')
         fig_hist, ax_hist = plt.subplots()
-        data_num.hist(figsize=(20, 20), xlabelsize=10, ylabelsize=10, color='#D0E11C', bins=30)
+        data_num.hist(ax=ax_hist, figsize=(20, 20), xlabelsize=10, ylabelsize=10, color='#D0E11C', bins=30)
         st.pyplot(fig_hist)
         st.dataframe(data_num.describe().T)
 
