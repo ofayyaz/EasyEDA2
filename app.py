@@ -208,6 +208,9 @@ if uploaded_file is not None:
     missing_values = calculate_missing_values(data_df)
     
     with tab1:
+        category_handler1 = CategoricalFeatureHandler(data_df)
+        category_handler1.create_categories_info(selected_cat, selected_num)
+        category_handler1.categories_info_plot(selected_cat, selected_num)
         if not missing_values.empty:
             st.write("### Missing Values by Attribute")
             for attribute, missing_count in missing_values.items():
@@ -219,9 +222,7 @@ if uploaded_file is not None:
     with tab3:
         tab2.caption(f"Correlations between Categorical attribute {selected_cat} and Numerical Attribute {selected_num}")
 
-    category_handler1 = CategoricalFeatureHandler(data_df)
-    category_handler1.create_categories_info(selected_cat, selected_num)
-    category_handler1.categories_info_plot(selected_cat, selected_num)
+    
 
     st.sidebar.divider()
     target_attribute = st.sidebar.selectbox(f"Target Attribute for heatmap & outliers", list(data_num_cols))
