@@ -170,9 +170,9 @@ def draw_battery_bar(missing_count, total_count):
     valid_ratio = valid_count / total_count
     missing_ratio = missing_count / total_count
     
-    fig, ax = plt.subplots(figsize=(5, 0.5))
-    ax.barh(y=[0], width=[valid_ratio], color='green', height=0.5)
-    ax.barh(y=[0], width=[missing_ratio], color='red', height=0.5, left=[valid_ratio])
+    fig, ax = plt.subplots(figsize=(5, 0.25))
+    ax.barh(y=[0], width=[valid_ratio], color='green', height=0.25)
+    ax.barh(y=[0], width=[missing_ratio], color='red', height=0.25, left=[valid_ratio])
     
     ax.set_xlim(0, 1)
     ax.axis('off')
@@ -205,7 +205,18 @@ if uploaded_file is not None:
 
     tab1, tab2, tab3, tab4, tab5 = st.tabs(["📈 Chart", "🗃 Data", ":thermometer: Heat Map", "🔢 Outliers", "📊 Histograms"])
     
-    with tab2:
+    missing_values = calculate_missing_values(data_df)
+    
+    with tab1:
+        if not missing_values.empty:
+            st.write("### Missing Values by Attribute")
+            for attribute, missing_count in missing_values.items():
+                total_count = len(data_df)
+                st.write(f"**{attribute}**: {missing_count} missing out of {total_count} ({missing_count / total_count:.2%})")
+                fig = draw_battery_bar(missing_count, total_count)
+                st.pyplot(fig)
+    
+    with tab3:
         tab2.caption(f"Correlations between Categorical attribute {selected_cat} and Numerical Attribute {selected_num}")
 
     category_handler1 = CategoricalFeatureHandler(data_df)
@@ -227,14 +238,8 @@ if uploaded_file is not None:
     colC.write(len(data_df))
 
     # New section for missing values
-    missing_values = calculate_missing_values(data_df)
-    if not missing_values.empty:
-        st.write("### Missing Values by Attribute")
-        for attribute, missing_count in missing_values.items():
-            total_count = len(data_df)
-            st.write(f"**{attribute}**: {missing_count} missing out of {total_count} ({missing_count / total_count:.2%})")
-            fig = draw_battery_bar(missing_count, total_count)
-            st.pyplot(fig)
+    
+    
 
     if dataframe_select == "Full":   
         tab2.write(data_df)
