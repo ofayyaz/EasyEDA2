@@ -340,10 +340,17 @@ if uploaded_file is not None:
         data_num.hist(ax=ax_hist, color='#D0E11C', bins=30)
     
     # Adjust the font size of the labels and titles
-        for ax in ax_hist.flatten():
+        if isinstance(ax_hist, np.ndarray):
+            axes = ax_hist.flatten()
+        else:
+            axes = [ax_hist]
+    
+    # Adjust the font size of the labels and titles
+        for ax in axes:
             ax.set_xlabel(ax.get_xlabel(), fontsize=8)
             ax.set_ylabel(ax.get_ylabel(), fontsize=8)
-            ax.set_title(ax.get_title(), fontsize=10)
+            ax.set_title(ax.get_title(), fontsize=10)  # Adjusted title size
+    
         st.pyplot(fig_hist)
         st.dataframe(data_num.describe().T)
 
