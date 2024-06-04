@@ -343,7 +343,8 @@ if uploaded_file is not None:
         for ax in ax_hist.flatten():
             ax.set_xlabel(ax.get_xlabel(), fontsize=8)
             ax.set_ylabel(ax.get_ylabel(), fontsize=8)
-            ax.set_title(ax.get_title(), fontsize=10) st.pyplot(fig_hist)
+            ax.set_title(ax.get_title(), fontsize=10)
+        st.pyplot(fig_hist)
         st.dataframe(data_num.describe().T)
 
 elif uploaded_file is None:
