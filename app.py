@@ -336,8 +336,8 @@ if uploaded_file is not None:
     with tab5:
         st.set_option('deprecation.showPyplotGlobalUse', False)
         plt.style.use('dark_background')
-        fig_hist, ax_hist = plt.subplots()
-        data_num.hist(ax=ax_hist, figsize=(20, 20), xlabelsize=10, ylabelsize=10, color='#D0E11C', bins=30)
+        fig_hist, ax_hist = plt.subplots(figsize=(10, 10))
+        data_num.hist(ax=ax_hist, xlabelsize=8, ylabelsize=8, color='#D0E11C', bins=30)  # Adjusted label sizes
         st.pyplot(fig_hist)
         st.dataframe(data_num.describe().T)
 
