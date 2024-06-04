@@ -336,23 +336,10 @@ if uploaded_file is not None:
     with tab5:
         st.set_option('deprecation.showPyplotGlobalUse', False)
         plt.style.use('dark_background')
-        fig_hist, ax_hist = plt.subplots(figsize=(10, 10))
-        data_num.hist(ax=ax_hist, color='#D0E11C', bins=30)
-    
-    # Adjust the font size of the labels and titles
-        if isinstance(ax_hist, np.ndarray):
-            axes = ax_hist.flatten()
-        else:
-            axes = [ax_hist]
-    
-    # Adjust the font size of the labels and titles
-        for ax in axes:
-            ax.set_xlabel(ax.get_xlabel(), fontsize=8)
-            ax.set_ylabel(ax.get_ylabel(), fontsize=8)
-            ax.set_title(ax.get_title(), fontsize=10)  # Adjusted title size
-    
-        st.pyplot(fig_hist)
-        st.dataframe(data_num.describe().T)
+        fig_hist, ax_hist =plt.subplots()
+        data_num.hist(figsize=(20, 20), xlabelsize=10, ylabelsize=10,color='#D0E11C',bins=30,)    
+        st.pyplot()    
+        data_num.describe().T
 
 elif uploaded_file is None:
     st.sidebar.warning("Please upload a data file to proceed.")
