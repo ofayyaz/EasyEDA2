@@ -337,8 +337,13 @@ if uploaded_file is not None:
         st.set_option('deprecation.showPyplotGlobalUse', False)
         plt.style.use('dark_background')
         fig_hist, ax_hist = plt.subplots(figsize=(10, 10))
-        data_num.hist(ax=ax_hist, xlabelsize=8, ylabelsize=8, color='#D0E11C', bins=30)  # Adjusted label sizes
-        st.pyplot(fig_hist)
+        data_num.hist(ax=ax_hist, color='#D0E11C', bins=30)
+    
+    # Adjust the font size of the labels and titles
+        for ax in ax_hist.flatten():
+            ax.set_xlabel(ax.get_xlabel(), fontsize=8)
+            ax.set_ylabel(ax.get_ylabel(), fontsize=8)
+            ax.set_title(ax.get_title(), fontsize=10) st.pyplot(fig_hist)
         st.dataframe(data_num.describe().T)
 
 elif uploaded_file is None:
